@@ -371,8 +371,42 @@ const bills = [
         },
         pointRate: 0.01,
     },
-];
+  ];
+  
+  // Start coding here
+  function getLocation(bills){
+  return bills.location
+  }
+  function filterLocation(location){
+    let sliceLocation = location.slice(0)
+    let filterLocation = []
+    for(let i in location){
+      sliceLocation = sliceLocation.slice(1)
+      if(sliceLocation.includes(location[i]) == false){
+          filterLocation.push(location[i])
+      }
+    }return filterLocation
+  }
+  
+  function buildObjectLocation(location){
+    let locationObject = {}
+    locationObject[location] = 0
+    return locationObject
+  }
+  
+  function totalPaid(objectLocation){
+    for(let i in objectLocation){
+      for(let j in bills){
+        if(bills[j].location == i){
+          objectLocation[i] += bills[j].total
+        }
+      }
+    }return objectLocation
+  }
 
-// Start coding here
-
-const totalPaidByLocation;
+  let location = bills.map(getLocation)
+  let filterdLocation = filterLocation(location)
+  let objectLocation = filterdLocation.map(buildObjectLocation)
+  const totalPaidByLocation = objectLocation.map(totalPaid)
+  console.log(totalPaidByLocation)
+  
